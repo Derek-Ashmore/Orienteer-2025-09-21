@@ -1,136 +1,67 @@
-[![Build Status](https://travis-ci.org/OrienteerBAP/Orienteer.svg?branch=master)](https://travis-ci.org/OrienteerBAP/Orienteer) [![Coverage Status](https://coveralls.io/repos/github/OrienteerBAP/Orienteer/badge.svg)](https://coveralls.io/github/OrienteerBAP/Orienteer) [![Gitter](https://badges.gitter.im/OrienteerBAP/Orienteer.svg)](https://gitter.im/OrienteerBAP/Orienteer?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge) [![Docker Pulls](https://img.shields.io/docker/pulls/orienteer/orienteer.svg)](https://hub.docker.com/r/orienteer/orienteer/) [![GitPitch](https://gitpitch.com/assets/badge.svg)](https://gitpitch.com/OrienteerBAP/Orienteer/) 
+# Orienteer Fork from 2025-09-21
 
-## Orienteer
+This is a fork of an open source CRM product [Orienteer](https://github.com/OrienteerBAP/Orienteer)
 
-![Orienteer Wordcloud](http://orienteerbap.github.io/Orienteer/images/wordcloud.png) ![Screencast](http://orienteerbap.github.io/Orienteer/images/overview/screencasts.gif)
+## 📋 Analysis Documentation
 
-### What is Orienteer 
+This repository contains comprehensive analysis of the Orienteer platform for cloud migration and modernization. The analysis is organized into three main areas:
 
-**Orienteer** is Business Application Platform: 
+### 🏗️ 12-Factor Cloud Analysis
+Assessment of Orienteer's cloud readiness based on the 12-Factor App methodology.
 
-* Easy creation of business applications
-* Extendable to fit your needs
-* Dynamic datamodel
-* Rest/JSON enabled
-* Developers friendly
-* Scalling and cloud ready (support of Docker)
+- **[12-factor/README.md](12-factor/README.md)** - Overview of cloud readiness analysis
+- **[12-factor/EXECUTIVE-SUMMARY.md](12-factor/EXECUTIVE-SUMMARY.md)** - Executive summary with overall cloud readiness score (5.6/10)
+- **[12-factor/DETAILED-ANALYSIS.md](12-factor/DETAILED-ANALYSIS.md)** - Comprehensive 12-factor compliance analysis
+- **[12-factor/CLOUD-READINESS-ASSESSMENT.md](12-factor/CLOUD-READINESS-ASSESSMENT.md)** - Cloud deployment readiness evaluation
+- **[12-factor/factor-i-ii-analysis-report.md](12-factor/factor-i-ii-analysis-report.md)** - Detailed analysis of Factors I & II (Codebase & Dependencies)
 
-## [Git Pitch](https://gitpitch.com/OrienteerBAP/Orienteer#/)
-## [User Guide](https://orienteer.gitbooks.io/orienteer/content/)
-## [Demo Site](https://demo.orienteer.org)
+### 📋 Business Requirements Documentation
+Comprehensive business requirements for platform reimplementation with cloud deployment focus.
 
-### Orienteer installation
+- **[requirements/README.md](requirements/README.md)** - Complete requirements documentation overview
+- **[requirements/01-executive-summary.md](requirements/01-executive-summary.md)** - Platform overview and business value
+- **[requirements/02-functional-requirements.md](requirements/02-functional-requirements.md)** - Core platform capabilities and module requirements
+- **[requirements/03-business-domain-model.md](requirements/03-business-domain-model.md)** - Business entities, relationships, and domain model
+- **[requirements/04-non-functional-requirements.md](requirements/04-non-functional-requirements.md)** - Performance, security, and operational requirements
+- **[requirements/05-api-requirements.md](requirements/05-api-requirements.md)** - REST API, GraphQL, and integration specifications
+- **[requirements/06-cloud-deployment.md](requirements/06-cloud-deployment.md)** - Container architecture and cloud-native deployment requirements
 
-There are 3 options for Orienteer installation:
+### 🚀 Product Migration Analysis
+Market analysis and recommendations for migrating Orienteer to modern SaaS platforms.
 
-- Docker
-- Embedded (on application server)
-- Standalone (no need in application server)
+- **[product-migration-analysis/market-analysis/README.md](product-migration-analysis/market-analysis/README.md)** - Quick reference guide for SaaS migration analysis
+- **[product-migration-analysis/market-analysis/executive-summary.md](product-migration-analysis/market-analysis/executive-summary.md)** - 1-page C-level overview with key recommendations
+- **[product-migration-analysis/market-analysis/detailed-recommendations.md](product-migration-analysis/market-analysis/detailed-recommendations.md)** - Comprehensive analysis and vendor evaluation
+- **[product-migration-analysis/market-analysis/migration-strategy.md](product-migration-analysis/market-analysis/migration-strategy.md)** - Detailed migration approach and timeline
+- **[product-migration-analysis/market-analysis/orienteer-features.md](product-migration-analysis/market-analysis/orienteer-features.md)** - Feature mapping and capability analysis
+- **[product-migration-analysis/market-analysis/saas-alternatives.md](product-migration-analysis/market-analysis/saas-alternatives.md)** - Evaluation of 15+ SaaS platform alternatives
 
-#### Docker
+## 🎯 Key Findings Summary
 
-Run new container by command docker `run -p 8080:8080 orienteer/orienteer`. Adjust this command if needed:
+### Cloud Readiness Status
+- **Overall Score**: 5.6/10 (Moderate readiness)
+- **Critical Issues**: Hardcoded credentials, stateful architecture, poor disposability
+- **Security Risk**: HIGH - Multiple vulnerabilities identified
+- **Recommendation**: Significant refactoring required before cloud deployment
 
-`-v <runtime>:/app/runtime` - mount runtime directory with databases, dynamically installed modules and etc.
+### Migration Recommendations
+1. **Primary Choice**: Salesforce Platform (95% feature coverage, $725K Year 1)
+2. **Alternative**: Microsoft Power Platform (excellent integration, $505K Year 1)  
+3. **Budget Option**: Mendix (fastest implementation, $375K Year 1)
 
-`-v <maven>:/root/m2` - mount your local maven repository
+### Business Impact
+- **Current Maintenance**: $225K-355K annually with 2+ FTE developers
+- **ROI Timeline**: 15-20 month payback period
+- **Risk Mitigation**: Eliminates critical security vulnerabilities and compliance gaps
 
-`ORIENTDB_ADMIN_PASSWORD=<password>` - specify admin password by default
+## 📖 Quick Start Guide
 
-`ORIENTDB_GUEST_PASSWORD=<password>` - specify reader password by default
+### For Executives
+Start with: [Migration Analysis Executive Summary](product-migration-analysis/market-analysis/executive-summary.md)
 
-#### Embedded
+### For Technical Teams  
+Begin with: [12-Factor Executive Summary](12-factor/EXECUTIVE-SUMMARY.md) and [Requirements Overview](requirements/README.md)
 
-Orienteer is Java Servlet 3.1 web application and can be installed on all famous compatible containers:
-
-- Jboss
-- Weblogic
-- IBM WebSphere
-- Tomcat
-- Jetty
-- and etc.
-
-To install Orienteer in embedded mode:
-- Download latest orienteer.war
-- Put orienteer.war into deployment folder for your application server
-- Configure orienteer.properties according to your environment and place it in the same directory or above
-- Run application server
-
-#### Standalone
-
-Orienteer in standalone mode use embedded jetty server to run yourself. To install Orienteer in standalone mode:
-- Download latest orienteer-standalone.jar
-- Put orienteer-standalone.jar into any directory
-- Optionally configure orienteer.properties accordging to your environment and place it in the same directory or above
-  - By default, Orienteer, will run OrientDB database embedded
-- Run Orinteer as ```java -Xmx512m -Xms512m -jar orienteer-standalone.jar```. JVM parameters can be adjusted accordingly. Additional application parameters can be supplied:
-  - ``` --config=<filename>``` - specification of path to orienteer configuration file
-  - ``` --embedded``` - run embedded OrientDB database
-  - ``` --port=<port number>``` - run Orienteer on specified port (Default: 8080)
-  - ``` --help``` - display help
-
-#### Orienteer initial configuration
-
-**orienteer.properties** is the main file to store initial configuration paramenters for your installation. Sample properties file can be always found [here](https://github.com/OrienteerBAP/Orienteer/blob/master/orienteer.properties.sample).
-
-```properties
-orienteer.production=false  //Run Orienteer in production mode or not
-orientdb.embedded=false     //Run embedded OrientDB server?
-orientdb.url=remote:localhost/Orienteer   //OrientDB server URL
-orientdb.guest.username=reader               //Default OrientDB user (will be used for guests as well)
-orientdb.guest.password=reader               //Password for default OrientDB user
-orientdb.admin.username=admin    //OrientDB user to user for administrative stuff
-orientdb.admin.password=admin    //Password for OrientDB user used for administrative stuff
-
-# Optional properties
-
-#orientdb.rest.url=http://localhost:2480
-#plantuml.url=http://custom-plantuml-url
-#plantuml.showuml=false;
-
-#webjars.readFromCacheTimeout=5 seconds
-#webjars.useCdnResources=true
-#webjars.cdnUrl=//maxcdn.bootstrapcdn.com:80
-```
-
-### Setup of development environment 
-
-#### Prerequisites
-1. java 8+
-2. git
-3. maven
-4. OrientDB, if you want to use OrientDB remotely
-
-#### Steps
-
-##### Install of [wicket-orientdb](https://github.com/OrienteerBAP/wicket-orientdb) github SNAPSHOT
-
-This step is optional: [wicket-orientdb](https://github.com/OrienteerBAP/wicket-orientdb) SNAPSHOT always available on Maven central
-
-```
-git clone <your fork URL for wicket-orientdb>
-cd wicket-orientdb
-mvn clean install
-```
-
-##### Install Orienteer
-```
-cd ..
-git clone <your fork URL for Orienteer>
-cd Orienteer
-mvn clean install
-```
-##### Modify orienteer.properties file
-See configuration section above
-
-##### Code compilation
-```
-mvn clean install
-```
-##### Run jetty server by command
-```
-mvn jetty:run
-```
-##### Goto the application
-Open http://localhost:8080 is in your browser
+### For Project Managers
+Review: [Migration Strategy](product-migration-analysis/market-analysis/migration-strategy.md) and [Detailed Recommendations](product-migration-analysis/market-analysis/detailed-recommendations.md)
 
