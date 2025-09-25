@@ -14,3 +14,8 @@ npx claude-flow swarm "Perform a twelve-factor analysis on this application and 
 ```
 npx claude-flow swarm "Reverse engineer the business requirements for this application and put the results in folder requirements. The documented requirements should be in enough detail that you could rewrite the application using other technology choices or programming languages. Additionally, any rewrite would likely be hosted in a public cloud. Please let me know if you need additional information." --claude
 ```
+
+> Product Migration analysis instruction
+```
+npx claude-flow swarm "My intention is to replace an installation of this product at an enterprise with a SaaS product alternative. Do a market analysis to determine which SaaS products would be the best candidates for migration. Place the analysis in folder product-migration-analysis/market-analysis. Product selection will be based on preserving end-user capabilities to the extent possible and an estimate of the migration effort. Please let me know if you need additional information." --claude
+```
