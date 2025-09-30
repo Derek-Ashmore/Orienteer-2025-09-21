@@ -24,3 +24,7 @@ npx claude-flow@latest swarm "My intention is to replace an installation of this
 ```
 npx claude-flow@latest swarm "Plan a migration an installation of this product to Salesforce. I wish to automate the migration as much as possible so that repeated test migrations are possible. Don't change the application or write migration automation yet. I'm interested in the plan to create and execute the migration. Place the analysis in folder product-migration-analysis/salesforce-migration. Please let me know if you need additional information." --claude
 ```
+
+```
+npx claude-flow@latest swarm "The migration plan in product-migration-analysis/salesforce-migration seemed unexpectedly complex. It seems that the migration plan is generalized for any installation of this product with all possible permutations and combinations. Would the migration be simpler if I were to provide data in an existing implementation? Furthermore the scope is a one-time migration. After the migration in production, the migration automation would be deprecated and never used again.  Please let me know if you need additional information." --claude
+```
