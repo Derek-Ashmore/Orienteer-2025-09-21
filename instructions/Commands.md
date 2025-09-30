@@ -22,5 +22,5 @@ npx claude-flow@latest swarm "My intention is to replace an installation of this
 
 > Salesforce Migration planning instruction
 ```
-npx claude-flow@latest swarm "Plan a migration an installation of this product to Salesforce. I wish to automate the migration as much as possible so that repeated test migrations are possible. Don't change the application or write migration automation yet. I'm interested in the plan to create and execute the migration. Please let me know if you need additional information." --claude
+npx claude-flow@latest swarm "Plan a migration an installation of this product to Salesforce. I wish to automate the migration as much as possible so that repeated test migrations are possible. Don't change the application or write migration automation yet. I'm interested in the plan to create and execute the migration. Place the analysis in folder product-migration-analysis/salesforce-migration. Please let me know if you need additional information." --claude
 ```
