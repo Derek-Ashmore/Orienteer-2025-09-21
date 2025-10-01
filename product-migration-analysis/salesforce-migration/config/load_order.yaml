@@ -1,0 +1,108 @@
+# Load Order Configuration
+# Defines dependency-aware loading phases for Salesforce objects
+
+load_phases:
+  # Phase 1: Independent reference data (no dependencies)
+  - phase: 1
+    description: "Independent reference data and lookup tables"
+    parallel: true
+    objects:
+      - UserRole
+      - RecordType
+      - Profile
+      - PermissionSet
+
+  # Phase 2: Standard objects with Level 1 dependencies
+  - phase: 2
+    description: "Standard objects with basic dependencies"
+    parallel: true
+    objects:
+      - User:
+          depends_on: [UserRole, Profile]
+          external_id_field: "OrientDB_External_ID__c"
+
+      - Account:
+          depends_on: []
+          external_id_field: "OrientDB_External_ID__c"
+
+  # Phase 3: Standard objects with Level 2 dependencies
+  - phase: 3
+    description: "Standard objects depending on Phase 2"
+    parallel: true
+    objects:
+      - Contact:
+          depends_on: [Account]
+          external_id_field: "OrientDB_External_ID__c"
+
+      - Lead:
+          depends_on: []
+          external_id_field: "OrientDB_External_ID__c"
+
+      - Opportunity:
+          depends_on: [Account]
+          external_id_field: "OrientDB_External_ID__c"
+
+  # Phase 4: Custom objects with Level 1 dependencies
+  - phase: 4
+    description: "Custom objects with basic dependencies"
+    parallel: true
+    objects:
+      - CustomEntity__c:
+          depends_on: [User, Account]
+          external_id_field: "OrientDB_External_ID__c"
+
+      - CustomSettings__c:
+          depends_on: [User]
+          external_id_field: "OrientDB_External_ID__c"
+
+  # Phase 5: Custom objects with Level 2 dependencies
+  - phase: 5
+    description: "Custom objects with complex dependencies"
+    parallel: true
+    objects:
+      - RelatedEntity__c:
+          depends_on: [CustomEntity__c]
+          external_id_field: "OrientDB_External_ID__c"
+
+      - ChildEntity__c:
+          depends_on: [CustomEntity__c, Account]
+          external_id_field: "OrientDB_External_ID__c"
+
+  # Phase 6: Junction objects (many-to-many relationships)
+  - phase: 6
+    description: "Junction objects for many-to-many relationships"
+    parallel: true
+    objects:
+      - UserPermission__c:
+          depends_on: [User, Permission__c]
+          external_id_field: "OrientDB_External_ID__c"
+
+      - EntityRelationship__c:
+          depends_on: [CustomEntity__c]
+          external_id_field: "OrientDB_External_ID__c"
+
+  # Phase 7: Attachments and files (load last)
+  - phase: 7
+    description: "Attachments and files"
+    parallel: false
+    objects:
+      - ContentVersion:
+          depends_on: [User]
+
+      - Attachment:
+          depends_on: [Account, Contact, CustomEntity__c]
+
+# Validation rules
+validation:
+  required_fields_check: true
+  relationship_integrity_check: true
+  duplicate_check: true
+  data_type_validation: true
+
+# Error handling
+error_handling:
+  max_error_percentage: 5  # Fail if >5% of records fail
+  retry_attempts: 3
+  retry_delay_seconds: 30
+  continue_on_error: true  # Continue with other batches if one fails
+  create_error_reports: true

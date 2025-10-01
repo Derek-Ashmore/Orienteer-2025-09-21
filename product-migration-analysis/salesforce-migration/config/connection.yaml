@@ -1,0 +1,88 @@
+# Connection Configuration
+# Database and API connection settings
+
+orientdb:
+  host: "localhost"
+  port: 2424
+  database: "orienteer_db"
+  username: "${ORIENTDB_USER}"
+  password: "${ORIENTDB_PASSWORD}"
+  connection_pool_size: 10
+  timeout_seconds: 300
+
+salesforce:
+  # Environment type: sandbox or production
+  environment: "sandbox"  # ALWAYS use sandbox for test migrations
+
+  # Salesforce instance
+  instance_url: "${SF_INSTANCE_URL}"
+  api_version: "58.0"
+
+  # Authentication
+  authentication:
+    type: "oauth2"
+    client_id: "${SF_CLIENT_ID}"
+    client_secret: "${SF_CLIENT_SECRET}"
+    username: "${SF_USERNAME}"
+    password: "${SF_PASSWORD}"
+    security_token: "${SF_SECURITY_TOKEN}"
+
+  # API settings
+  api:
+    bulk_api_version: "2.0"
+    max_concurrent_jobs: 5
+    batch_size: 10000  # Salesforce limit
+    timeout_minutes: 60
+    rate_limit_buffer: 0.8  # Use 80% of rate limit
+
+# Migration settings
+migration:
+  # Batch processing
+  batch_size: 1000
+  max_parallel_jobs: 5
+
+  # Retry settings
+  retry_attempts: 3
+  retry_delay_seconds: 30
+  exponential_backoff: true
+
+  # Validation
+  validation_sample_size: 100
+  validation_required: true
+  validate_before_load: true
+  validate_after_load: true
+
+  # Logging
+  log_level: "INFO"  # DEBUG, INFO, WARNING, ERROR
+  log_directory: "logs"
+  create_detailed_logs: true
+  log_failed_records: true
+
+  # Data quality
+  allow_null_values: false
+  truncate_long_strings: true
+  skip_invalid_records: false
+
+# Security
+security:
+  encrypt_logs: false
+  mask_sensitive_fields: true
+  audit_trail: true
+
+# Performance
+performance:
+  enable_parallel_processing: true
+  memory_limit_mb: 2048
+  disk_cache_enabled: true
+  compression_enabled: true
+
+# Environment variables (loaded from .env file)
+# Create a .env file with these values:
+# ORIENTDB_USER=admin
+# ORIENTDB_PASSWORD=your_password
+# SF_INSTANCE_URL=https://your-instance.salesforce.com
+# SF_CLIENT_ID=your_client_id
+# SF_CLIENT_SECRET=your_client_secret
+# SF_USERNAME=your_username
+# SF_PASSWORD=your_password
+# SF_SECURITY_TOKEN=your_security_token

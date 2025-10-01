@@ -1,0 +1,142 @@
+# Schema Mapping Configuration
+# Maps OrientDB classes to Salesforce objects with field-level transformations
+
+mappings:
+  # Example mapping for OUser to Salesforce User
+  - orientdb_class: "OUser"
+    salesforce_object: "User"
+    mapping_type: "standard"
+    transformation_rules:
+      fields:
+        - orientdb_field: "name"
+          salesforce_field: "Username"
+          transformation: "to_email_format"
+          max_length: 80
+          required: true
+
+        - orientdb_field: "firstName"
+          salesforce_field: "FirstName"
+          transformation: "trim_whitespace"
+          max_length: 40
+
+        - orientdb_field: "lastName"
+          salesforce_field: "LastName"
+          transformation: "trim_whitespace"
+          max_length: 80
+          required: true
+
+        - orientdb_field: "email"
+          salesforce_field: "Email"
+          transformation: "to_lowercase"
+          max_length: 80
+          required: true
+
+        - orientdb_field: "status"
+          salesforce_field: "IsActive"
+          transformation: "convert_status_to_boolean"
+
+      relationships:
+        - orientdb_property: "role"
+          orientdb_linked_class: "ORole"
+          salesforce_field: "UserRoleId"
+          relationship_type: "lookup"
+          required: false
+
+  # Example mapping for custom OrientDB class
+  - orientdb_class: "CustomEntity"
+    salesforce_object: "CustomEntity__c"
+    mapping_type: "custom"
+    create_if_missing: true
+    transformation_rules:
+      fields:
+        - orientdb_field: "name"
+          salesforce_field: "Name"
+          transformation: "trim_whitespace"
+          max_length: 80
+          required: true
+
+        - orientdb_field: "description"
+          salesforce_field: "Description__c"
+          transformation: "trim_whitespace"
+          max_length: 32000
+
+        - orientdb_field: "createdDate"
+          salesforce_field: "Created_Date__c"
+          transformation: "date_to_iso"
+
+        - orientdb_field: "status"
+          salesforce_field: "Status__c"
+          transformation: "standardize_picklist"
+          picklist_mapping:
+            "active": "Active"
+            "ACTIVE": "Active"
+            "inactive": "Inactive"
+            "INACTIVE": "Inactive"
+
+        - orientdb_field: "customField1"
+          salesforce_field: "Custom_Field_1__c"
+          max_length: 255
+
+      relationships:
+        - orientdb_property: "owner"
+          orientdb_linked_class: "OUser"
+          salesforce_field: "Owner__c"
+          relationship_type: "lookup"
+          lookup_object: "User"
+          required: false
+
+        - orientdb_property: "account"
+          orientdb_linked_class: "Account"
+          salesforce_field: "Account__c"
+          relationship_type: "master_detail"
+          required: true
+
+  # Template for additional mappings
+  - orientdb_class: "TemplateClass"
+    salesforce_object: "TemplateObject__c"
+    mapping_type: "custom"
+    enabled: false  # Set to true to enable this mapping
+    transformation_rules:
+      fields:
+        - orientdb_field: "field_name"
+          salesforce_field: "Field_Name__c"
+          transformation: "trim_whitespace"
+          max_length: 255
+
+# Data cleansing rules
+cleansing_rules:
+  - rule_name: "remove_invalid_emails"
+    applies_to: ["Email"]
+    validation: "email_regex"
+    action: "set_null_if_invalid"
+
+  - rule_name: "normalize_phone_numbers"
+    applies_to: ["Phone", "MobilePhone"]
+    transformation: "strip_non_numeric"
+    format: "US_PHONE_NUMBER"
+
+  - rule_name: "standardize_dates"
+    applies_to: ["CreatedDate", "ModifiedDate"]
+    transformation: "date_to_iso"
+
+  - rule_name: "fix_null_required_fields"
+    applies_to: ["LastName"]
+    default_value: "Unknown"
+    condition: "if_null"
+
+# Type conversion matrix
+type_mappings:
+  STRING: "Text(255)"
+  INTEGER: "Number(18,0)"
+  LONG: "Number(18,0)"
+  FLOAT: "Number(16,2)"
+  DOUBLE: "Number(18,8)"
+  DECIMAL: "Currency"
+  DATE: "Date"
+  DATETIME: "DateTime"
+  BOOLEAN: "Checkbox"
+  LINK: "Lookup"
+  LINKLIST: "Junction_Object"
+  LINKSET: "Junction_Object"
+  EMBEDDED: "Text_Area_Long"
+  EMBEDDEDLIST: "Text_Area_Long"
