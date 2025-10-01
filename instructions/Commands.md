@@ -19,3 +19,8 @@ npx claude-flow swarm "Reverse engineer the business requirements for this appli
 ```
 npx claude-flow swarm "My intention is to replace an installation of this product at an enterprise with a SaaS product alternative. Do a market analysis to determine which SaaS products would be the best candidates for migration. Place the analysis in folder product-migration-analysis/market-analysis. Product selection will be based on preserving end-user capabilities to the extent possible and an estimate of the migration effort. Please let me know if you need additional information." --claude
 ```
+
+> Salesforce Migration planning instruction
+```
+npx claude-flow@latest swarm "Plan a migration an installation of this product to Salesforce using the requirements documented in product-migration-analysis/salesforce-migration/Migration-Requirements.md. Please document the plan in folder product-migration-analysis/salesforce-migration. Please document your thinking step by step. Please document any additional information you need." --claude
+```
