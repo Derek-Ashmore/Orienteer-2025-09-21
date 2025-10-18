@@ -1,0 +1,47 @@
+# Python Dependencies for OrientDB to Salesforce Migration
+
+# Database connectors
+pyorient==1.5.5              # OrientDB Python client
+simple-salesforce==1.12.0    # Salesforce REST API
+salesforce-bulk==2.2.0       # Salesforce Bulk API
+
+# Data processing
+pandas==2.0.0                # Data manipulation
+numpy==1.24.0                # Numerical operations
+pyyaml==6.0                  # YAML configuration parsing
+
+# Utilities
+python-dotenv==1.0.0         # Environment variable management
+requests==2.31.0             # HTTP requests
+jinja2==3.1.2                # Template rendering
+click==8.1.0                 # CLI framework
+
+# Date/time handling
+python-dateutil==2.8.2       # Date parsing
+pytz==2023.3                 # Timezone support
+
+# Validation
+cerberus==1.3.5              # Data validation
+jsonschema==4.17.0           # JSON schema validation
+
+# Testing
+pytest==7.3.0                # Testing framework
+pytest-cov==4.0.0            # Coverage reports
+faker==18.9.0                # Test data generation
+responses==0.23.0            # Mock HTTP responses
+
+# Logging and monitoring
+structlog==23.1.0            # Structured logging
+colorlog==6.7.0              # Colored console output
+
+# Performance
+tqdm==4.65.0                 # Progress bars
+joblib==1.2.0                # Parallel processing
+
+# Export/Import
+openpyxl==3.1.0              # Excel file handling (for reports)
+
+# Development tools (optional)
+black==23.3.0                # Code formatting
+flake8==6.0.0                # Linting
+mypy==1.3.0                  # Type checking

@@ -1,0 +1,22 @@
+{
+  "salesforce-migration": [
+    {
+      "key": "architecture/data-model/design",
+      "value": "Salesforce data model uses Custom Objects for all entities. Core objects: Orienteer_User__c, Orienteer_Role__c, Orienteer_Perspective__c, Orienteer_Dashboard__c, Orienteer_Widget__c, Orienteer_Localization__c, Orienteer_Module__c, Orienteer_Task__c. Master-Detail relationships for parent-child (Perspective-Items, Dashboard-Widgets). Lookup for optional relationships. Junction objects for many-to-many (User-Role). EMBEDDEDMAP stored as JSON in Long Text fields. External_Id__c on all objects for OrientDB RID mapping.",
+      "namespace": "salesforce-migration",
+      "timestamp": 1759312010640
+    },
+    {
+      "key": "architecture/application/structure",
+      "value": "Lightning Experience with LWC components (orienteerDashboard, orienteerWidget, orienteerPerspectiveMenu, orienteerTaskMonitor). Apex architecture: Controllers, Services, Domain classes, Trigger handlers. REST API at /services/apexrest/orienteer/v1/. Platform Events for real-time updates (Orienteer_Task_Event__e, Orienteer_Dashboard_Event__e). Service layer pattern with wrapper classes. Enterprise trigger framework.",
+      "namespace": "salesforce-migration",
+      "timestamp": 1759312012946
+    },
+    {
+      "key": "architecture/migration/pipeline",
+      "value": "ETL pipeline: 1) OrientDB extraction (Node.js script exports to JSON), 2) Python transformation (schema mapping, type conversion, relationship resolution, CSV generation), 3) Salesforce Bulk API 2.0 loading (parallel jobs in dependency order). Migration order: Roles, Perspectives, Users, Items, Dashboards, Widgets, Modules, Localization, Tasks. Validation includes record counts, relationship integrity, data quality checks. External IDs enable idempotent re-runs.",
+      "namespace": "salesforce-migration",
+      "timestamp": 1759312015533
+    }
+  ]
+}
