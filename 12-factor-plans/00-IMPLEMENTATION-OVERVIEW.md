@@ -44,6 +44,7 @@ This implementation plan provides a comprehensive roadmap for transforming Orien
 - **Incremental Delivery**: Working code delivered every sprint
 
 ### Key Phases
+**-1. Phase -1: Test Harness Foundation** (4-6 weeks) - **MUST COMPLETE FIRST**
 1. **Phase 0: Security & Quick Wins** (2-3 weeks) - CRITICAL
 2. **Phase 1: Configuration & Infrastructure** (4-6 weeks)
 3. **Phase 2: Stateless Architecture** (8-10 weeks)
@@ -52,11 +53,13 @@ This implementation plan provides a comprehensive roadmap for transforming Orien
 6. **Phase 5: Production Hardening** (4-6 weeks)
 
 ### Total Estimated Effort
-- **Timeline**: 6-8 months
-- **Agent Teams**: 4-6 concurrent agent teams
+- **Timeline**: 8-10 months (including test harness)
+- **Human Team**: 5-8 full-time engineers + part-time support
+- **Agentic Support**: Claude-Flow orchestration with autonomous agent selection
 - **Code Changes**: ~15,000-20,000 lines modified/added
-- **Test Coverage Target**: 85%+
+- **Test Coverage Target**: 85%+ (starting from 60% baseline in Phase -1)
 - **Zero Downtime**: Rolling deployment strategy
+- **Investment**: $800K-1.2M total (labor + infrastructure)
 
 ---
 
@@ -264,124 +267,145 @@ public class OrienteerWebSession extends WebSession {
 
 ---
 
-## Agent Coordination Strategy
+## Human and Agentic Collaboration Model
 
-### Agent Team Organization
+### Human Team Structure
 
-#### Swarm Topology: Hierarchical
-- **Coordinator Agent**: Overall project management and task orchestration
-- **Phase Lead Agents**: One per phase for tactical coordination
-- **Specialized Worker Agents**: Implementation teams
+**Core Full-Time Team (5-8 FTE)**:
 
-#### Agent Types and Roles
+**Technical Lead / Architect (1 FTE)**
+- Responsibilities: Architecture decisions, technical oversight, risk management
+- Time: Full-time throughout project
+- Skills: Orienteer expertise, cloud architecture, refactoring experience
 
-**Coordinator Agents** (1-2):
-- Project oversight and planning
-- Phase coordination
-- Risk management
-- Dependency tracking
-- Progress reporting
+**Senior Backend Engineers (2-3 FTE)**
+- Responsibilities: Code implementation, code reviews, design
+- Time: Full-time throughout project
+- Skills: Java, Wicket, OrientDB, cloud patterns
 
-**Architecture Agents** (2-3):
-- System design decisions
-- Integration patterns
-- Technical debt management
-- Design reviews
+**QA/Test Engineers (1-2 FTE)**
+- Responsibilities: Test strategy, test implementation, quality validation
+- Time: Full-time, especially Phase -1 and Phase 5
+- Skills: Test automation, Java, API testing
 
-**Backend Development Agents** (3-5):
-- Core application code
-- API implementation
-- Business logic
-- Database interactions
+**DevOps Engineer (1 FTE)**
+- Responsibilities: Infrastructure, CI/CD, deployment, monitoring
+- Time: Full-time throughout project
+- Skills: Kubernetes, Docker, CI/CD, cloud platforms
 
-**Security Agents** (2-3):
-- Credential management
-- Authentication/authorization
-- Security scanning
-- Compliance validation
+**Security Engineer (0.5-1 FTE)**
+- Responsibilities: Security reviews, vulnerability remediation
+- Time: Heavy in Phase 0, ongoing reviews
+- Skills: Application security, penetration testing
 
-**DevOps Agents** (2-4):
-- Infrastructure as code
-- CI/CD pipelines
-- Container orchestration
-- Deployment automation
+**Part-Time Support (15-25% allocation)**:
 
-**Testing Agents** (2-3):
-- Unit testing
-- Integration testing
-- Performance testing
-- Security testing
+**Product Manager** (0.25 FTE)
+- Activities: Requirements clarification, prioritization, stakeholder communication
+- Time: 1-2 hours/day for decisions and reviews
 
-**Database Agents** (1-2):
-- Schema changes
-- Migration scripts
-- Query optimization
-- Connection management
+**Database Administrator** (0.25 FTE)
+- Activities: Database design reviews, migration validation, performance tuning
+- Time: As needed, heavy in Phase 1-2
 
-**Frontend Agents** (1-2):
-- UI modifications for stateless auth
-- Session handling changes
-- User experience
+**Domain Experts** (2-3 people, 0.1 FTE each)
+- Activities: Business rules clarification, test scenario validation
+- Time: 2-4 hours/week
 
-**SRE Agents** (2-3):
-- Observability implementation
-- Monitoring setup
-- Alerting configuration
-- Incident response
+**Project Manager** (0.5 FTE)
+- Activities: Project coordination, status reporting, risk tracking
+- Time: Ongoing project management
 
-**Documentation Agents** (1-2):
-- Technical documentation
-- Runbooks
-- API documentation
-- Architecture diagrams
+### Agentic Support via Claude-Flow
 
-### Agent Coordination Patterns
+**How Agents Are Used**:
+- ✅ **Autonomous Selection**: Claude-Flow determines which agents to spawn based on task analysis
+- ✅ **Code Generation**: Agents generate boilerplate, tests, and implementation drafts
+- ✅ **Documentation**: Agents create technical documentation, runbooks
+- ✅ **Analysis**: Agents analyze codebase, identify patterns, suggest improvements
+- ✅ **Testing**: Agents generate test cases based on specifications
+- ✅ **Review**: Agents perform initial code reviews, identify issues
 
-#### Task Execution Flow
+**Human Oversight Required**:
+- ❌ Architecture decisions (human-led, agent-supported)
+- ❌ Security-critical changes (human review mandatory)
+- ❌ Production deployment approval (human sign-off)
+- ❌ Test strategy design (human-led)
+- ❌ Business logic validation (human domain experts)
+
+### Collaboration Pattern
+
 ```
-1. Coordinator Agent analyzes phase requirements
-2. Creates detailed task breakdown
-3. Spawns specialized agent teams via Claude Code Task tool
-4. Agents execute in parallel using:
-   - Claude-Flow hooks for coordination
-   - Shared memory for state
-   - TodoWrite for progress tracking
-5. Continuous integration via git commits
-6. Automated testing and validation
-7. Code review by reviewer agents
-8. Merge and proceed to next task
+Human Activity → Agent Support → Human Review → Approval
+
+Example: Implement JWT Authentication
+1. Human: Define requirements and design (2 hours)
+2. Agent: Generate implementation code (5 minutes)
+3. Human: Review, refine, test (2-3 hours)
+4. Human: Approve and merge (30 minutes)
+
+Total: 5-6 hours (vs. 12-16 hours manual)
+Efficiency Gain: 60-70%
 ```
 
-#### Communication Protocol
-```javascript
-// Agent coordination using Claude-Flow
-npx claude-flow@alpha hooks pre-task --description "[task]"
-npx claude-flow@alpha hooks post-edit --file "[file]" --memory-key "swarm/[agent]/[step]"
-npx claude-flow@alpha hooks notify --message "[progress update]"
-npx claude-flow@alpha hooks post-task --task-id "[task]"
-```
+### Weekly Rhythm and Human Activities
 
-#### Memory Management
-```javascript
-// Shared knowledge base structure
-memory/
-  architecture/
-    decisions/      # ADRs and design choices
-    patterns/       # Reusable patterns
-  implementation/
-    phase-0/        # Security fixes
-    phase-1/        # Configuration
-    phase-2/        # Stateless
-    phase-3/        # Concurrency
-    phase-4/        # Cloud-native
-    phase-5/        # Hardening
-  testing/
-    results/        # Test outcomes
-    coverage/       # Coverage reports
-  deployment/
-    configs/        # K8s manifests
-    scripts/        # Automation
-```
+**Daily Standup (30 minutes)**
+- Team: All engineers
+- Activities: Progress updates, blockers, coordination
+- Human-led, agent-supported with status summaries
+
+**Weekly Architecture Review (2 hours)**
+- Team: Technical Lead, Senior Engineers
+- Activities: Design decisions, technical debt review, risk assessment
+- Human-led, agent-provided analysis and options
+
+**Weekly Demo/Review (1 hour)**
+- Team: Engineering + Product Manager
+- Activities: Show progress, validate functionality, get feedback
+- Human-led demonstration
+
+**Sprint Planning (2 hours, every 2 weeks)**
+- Team: Technical Lead, Engineers, Product Manager, Project Manager
+- Activities: Plan next sprint, prioritize work, estimate effort
+- Human-led, agent-supported with task breakdown suggestions
+
+### Human Decision Points Throughout Project
+
+**Phase -1**:
+- Week 2: Approve test strategy and framework selection
+- Week 4: Coverage adequacy review - proceed or add more tests?
+- Week 6: Phase sign-off - is test harness sufficient?
+
+**Phase 0**:
+- Week 1: Review security scanning results - which issues to fix first?
+- Week 2: Approve secrets management approach
+- Week 3: Production deployment approval
+
+**Phase 1**:
+- Week 2: Approve configuration architecture
+- Week 4: Database migration strategy approval
+- Week 6: Environment parity validation
+
+**Phase 2**:
+- Week 2: JWT implementation design review
+- Week 4: Session migration strategy approval
+- Week 8: Load test results review - ready for production?
+
+**Phase 3**:
+- Week 2: Message queue technology selection
+- Week 4: Worker process architecture review
+- Week 8: Performance validation - async working correctly?
+
+**Phase 4**:
+- Week 2: Observability stack selection
+- Week 4: Circuit breaker strategy approval
+- Week 8: Chaos test results review
+
+**Phase 5**:
+- Week 2: Load test results - ready for production scale?
+- Week 4: Security audit review - approve for production?
+- Week 6: Go/no-go production deployment decision
 
 ---
 

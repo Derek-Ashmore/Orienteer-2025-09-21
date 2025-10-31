@@ -4,7 +4,9 @@
 **Created**: October 31, 2025
 **Current Cloud Readiness**: 5.6/10 (Moderate)
 **Target Cloud Readiness**: 9.3/10 (Excellent)
-**Implementation Approach**: Agent-based development using Claude-Flow and Claude Code
+**Implementation Approach**: Human engineers supported by Claude-Flow agentic assistance
+**Staffing Required**: 5-8 FTE for 8-10 months
+**Investment**: $1.1M-1.6M total
 
 ---
 
@@ -14,6 +16,7 @@
 - **[00-IMPLEMENTATION-OVERVIEW.md](00-IMPLEMENTATION-OVERVIEW.md)** - Complete implementation strategy, phases, and coordination
 
 ### Phase Implementation Plans
+**-1. [00A-PHASE-MINUS-1-TEST-HARNESS.md](00A-PHASE-MINUS-1-TEST-HARNESS.md)** - **Test harness MUST come first** (4-6 weeks)
 1. **[01-PHASE-0-SECURITY-QUICK-WINS.md](01-PHASE-0-SECURITY-QUICK-WINS.md)** - Critical security fixes (2-3 weeks)
 2. **[02-PHASE-1-CONFIGURATION-INFRASTRUCTURE.md](02-PHASE-1-CONFIGURATION-INFRASTRUCTURE.md)** - Config externalization (4-6 weeks)
 3. **[03-PHASE-2-STATELESS-ARCHITECTURE.md](03-PHASE-2-STATELESS-ARCHITECTURE.md)** - Horizontal scalability (8-10 weeks)
@@ -22,10 +25,10 @@
 6. **[06-PHASE-5-PRODUCTION-HARDENING.md](06-PHASE-5-PRODUCTION-HARDENING.md)** - Production readiness (4-6 weeks)
 
 ### Supporting Documentation
-7. **07-AGENT-COORDINATION-GUIDE.md** - Agent swarm orchestration [Coming Soon]
-8. **08-TESTING-STRATEGY.md** - Comprehensive testing approach [Coming Soon]
-9. **09-DEPLOYMENT-STRATEGY.md** - Blue-green and rolling deployments [Coming Soon]
-10. **10-MONITORING-OBSERVABILITY.md** - Metrics, logging, tracing [Coming Soon]
+7. **[07-HUMAN-STAFFING-AND-COSTS.md](07-HUMAN-STAFFING-AND-COSTS.md)** - Complete staffing requirements and cost analysis
+8. **08-TESTING-STRATEGY.md** - Comprehensive testing approach [Covered in Phase -1]
+9. **09-DEPLOYMENT-STRATEGY.md** - Blue-green and rolling deployments [Covered in Phase 5]
+10. **10-MONITORING-OBSERVABILITY.md** - Metrics, logging, tracing [Covered in Phase 4]
 
 ---
 
@@ -79,6 +82,7 @@ After implementing this plan, Orienteer will achieve a **Cloud Readiness Score o
 ## ⏱️ Implementation Timeline
 
 ```
+Phase -1: Test Harness Foundation       [==========] 4-6 weeks **MUST COMPLETE FIRST**
 Phase 0: Security & Quick Wins           [========] 2-3 weeks
 Phase 1: Configuration & Infrastructure  [==============] 4-6 weeks
 Phase 2: Stateless Architecture         [=====================] 8-10 weeks
@@ -86,12 +90,14 @@ Phase 3: Concurrency & Decomposition    [=====================] 8-10 weeks
 Phase 4: Cloud-Native Features          [=====================] 8-10 weeks
 Phase 5: Production Hardening           [========] 4-6 weeks
 ────────────────────────────────────────────────────────────────
-Total Timeline                          [████████████████████████] 34-45 weeks (6-8 months)
+Total Timeline                          [████████████████████████] 38-51 weeks (8-10 months)
 ```
 
 ### Phase Dependencies
 ```
-Phase 0 (Security)
+⚠️  Phase -1 (Test Harness) **MANDATORY FIRST STEP**
+    ↓
+Phase 0 (Security) - Cannot proceed without test safety net
     ↓
 Phase 1 (Configuration) - depends on Phase 0
     ↓
@@ -103,6 +109,8 @@ Phase 4 (Cloud-Native) - depends on Phase 3 (process separation)
     ↓
 Phase 5 (Hardening) - depends on Phase 4 (all features complete)
 ```
+
+**Critical**: You CANNOT skip Phase -1. Refactoring a brownfield application without comprehensive tests will lead to production incidents and data loss.
 
 ---
 
@@ -138,48 +146,47 @@ Phase 5 (Hardening) - depends on Phase 4 (all features complete)
 
 ---
 
-## 🤖 Agent-Based Development Approach
+## 👥 Human-Led Development with Agentic Support
 
-This implementation plan is designed for **autonomous agent-based development** using:
+This implementation plan reflects **realistic human engineering work** supported by Claude-Flow agentic assistance:
 
-### Claude-Flow Orchestration
-- **Swarm initialization**: `npx claude-flow@alpha hooks pre-task`
-- **Memory coordination**: Shared memory for agent communication
-- **Task orchestration**: Parallel task execution across agent teams
+### Human Team (Core FTE)
+- **Technical Lead / Architect** (1 FTE) - Architecture decisions, technical oversight
+- **Senior Backend Engineers** (2-3 FTE) - Implementation, code reviews
+- **QA/Test Engineers** (1-2 FTE) - Test strategy, test automation
+- **DevOps Engineer** (1 FTE) - Infrastructure, CI/CD, deployments
+- **Security Engineer** (0.5-1 FTE) - Security reviews, vulnerability remediation
 
-### Claude Code Execution
-- **Task tool**: Spawns specialized agents for implementation
-- **Parallel execution**: Multiple agents work concurrently
-- **Batch operations**: All related operations in single messages
-- **Test-driven**: Tests written before implementation
+### Part-Time Support
+- **Product Manager** (0.25 FTE) - Requirements, prioritization
+- **Database Administrator** (0.25 FTE) - Database design, performance
+- **Domain Experts** (2-3, 0.1 FTE each) - Business rules, validation
+- **Project Manager** (0.5 FTE) - Coordination, status reporting
 
-### Agent Team Structure
+### Claude-Flow Agentic Support
+- ✅ **Autonomous agent selection** - Claude-Flow decides which agents to use
+- ✅ **Code generation** - Generate boilerplate, tests, documentation
+- ✅ **Analysis support** - Analyze codebase, suggest improvements
+- ✅ **Review assistance** - Initial code reviews, identify issues
+
+### Human Decision Points
+- Architecture decisions (human-led, agent-supported)
+- Security-critical changes (human review mandatory)
+- Production deployment approval (human sign-off required)
+- Test strategy design (human-led)
+- Business logic validation (domain experts)
+
+### Collaboration Pattern
 ```
-Coordinator Agent (1)
-    ├── Phase Lead Agents (5-6, one per phase)
-    │   ├── Backend Development Agents (3-5)
-    │   ├── Security Agents (2-3)
-    │   ├── DevOps/Infrastructure Agents (2-4)
-    │   ├── Database Agents (1-2)
-    │   ├── Testing/QA Agents (2-3)
-    │   ├── Frontend Agents (1-2)
-    │   ├── SRE/Observability Agents (2-3)
-    │   └── Documentation Agents (1-2)
-    └── Review Agents (2-3)
-```
+Human Activity → Agentic Support → Human Review → Approval
 
-### Coordination Pattern
-```javascript
-// Single message spawns ALL agents concurrently
-[Claude Code Task Tool]:
-  Task("Security Lead", "Fix credentials", "security-manager")
-  Task("Backend Dev 1", "Implement config loader", "backend-dev")
-  Task("Backend Dev 2", "Graceful shutdown", "backend-dev")
-  Task("DevOps", "Docker secrets", "cicd-engineer")
-  Task("Testing", "Write tests", "tester")
+Example: Implement JWT Authentication
+1. Human: Define requirements and design (2 hours)
+2. Agent: Generate implementation code (5 minutes)
+3. Human: Review, refine, test (2-3 hours)
+4. Human: Approve and merge (30 minutes)
 
-  // Batch all todos in ONE call
-  TodoWrite { todos: [8-10 todos...] }
+Efficiency Gain: 60-70% vs. fully manual
 ```
 
 ---
