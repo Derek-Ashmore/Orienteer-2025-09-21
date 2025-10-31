@@ -15,6 +15,11 @@ npx claude-flow@latest swarm "Perform a twelve-factor analysis on this applicati
 npx claude-flow@latest swarm "Use the twelve-factor anlaysis you documented in folder 12-factor as input. twelve-factor principles are documented at https://www.12factor.net/  Document an implementation plan to upgrade the application to adhere to 12-factor principles. Place the implementation plan in folder 12-factor-plans. Assume the implementation will be performed by agentic engineers using Claude-Flow and Claude Code.  Do not change the application yet. Please let me know if you need additional information." --claude
 ```
 
+> 12 Factor Analysis implementation plan refinement
+```
+npx claude-flow@latest swarm "Refine the plan you documented in folder 12-factor-plans. Please enhance the plan to ensure that an automated test harness exists before we change anything in the application. Additionally, we don't intend to micro-manage the agent selection by Claude-flow. Please reflect human activity by agentic engineers and other humans needed. Also include any needed human effort and staffing needs. Please let me know if you need additional information." --claude
+```
+
 > Reverse Engineer Requirements instruction
 ```
 npx claude-flow@latest swarm "Reverse engineer the business requirements for this application and put the results in folder requirements. The documented requirements should be in enough detail that you could rewrite the application using other technology choices or programming languages. Additionally, any rewrite would likely be hosted in a public cloud. Please let me know if you need additional information." --claude
