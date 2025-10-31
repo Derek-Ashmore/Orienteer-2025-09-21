@@ -17,9 +17,9 @@
 1. **[01-PHASE-0-SECURITY-QUICK-WINS.md](01-PHASE-0-SECURITY-QUICK-WINS.md)** - Critical security fixes (2-3 weeks)
 2. **[02-PHASE-1-CONFIGURATION-INFRASTRUCTURE.md](02-PHASE-1-CONFIGURATION-INFRASTRUCTURE.md)** - Config externalization (4-6 weeks)
 3. **[03-PHASE-2-STATELESS-ARCHITECTURE.md](03-PHASE-2-STATELESS-ARCHITECTURE.md)** - Horizontal scalability (8-10 weeks)
-4. **04-PHASE-3-CONCURRENCY-DECOMPOSITION.md** - Process separation (8-10 weeks) [Coming Soon]
-5. **05-PHASE-4-CLOUD-NATIVE-FEATURES.md** - Observability and resilience (8-10 weeks) [Coming Soon]
-6. **06-PHASE-5-PRODUCTION-HARDENING.md** - Production readiness (4-6 weeks) [Coming Soon]
+4. **[04-PHASE-3-CONCURRENCY-DECOMPOSITION.md](04-PHASE-3-CONCURRENCY-DECOMPOSITION.md)** - Process separation (8-10 weeks)
+5. **[05-PHASE-4-CLOUD-NATIVE-FEATURES.md](05-PHASE-4-CLOUD-NATIVE-FEATURES.md)** - Observability and resilience (8-10 weeks)
+6. **[06-PHASE-5-PRODUCTION-HARDENING.md](06-PHASE-5-PRODUCTION-HARDENING.md)** - Production readiness (4-6 weeks)
 
 ### Supporting Documentation
 7. **07-AGENT-COORDINATION-GUIDE.md** - Agent swarm orchestration [Coming Soon]
