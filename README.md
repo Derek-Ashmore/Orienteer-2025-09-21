@@ -9,7 +9,7 @@ This repository contains comprehensive analysis of the Orienteer platform for cl
 ### 🏗️ 12-Factor Cloud Analysis
 Assessment of Orienteer's cloud readiness based on the 12-Factor App methodology.
 
-- **[12-factor/README.md](12-factor/README.md)** - Overview of cloud readiness analysis
+- **[12-factor/EXECUTIVE-SUMMARY.md](12-factor/EXECUTIVE-SUMMARY.md)** - Overview of cloud readiness analysis
 - **[12-factor/EXECUTIVE-SUMMARY.md](12-factor/EXECUTIVE-SUMMARY.md)** - Executive summary with overall cloud readiness score (5.6/10)
 - **[12-factor/DETAILED-ANALYSIS.md](12-factor/DETAILED-ANALYSIS.md)** - Comprehensive 12-factor compliance analysis
 - **[12-factor/CLOUD-READINESS-ASSESSMENT.md](12-factor/CLOUD-READINESS-ASSESSMENT.md)** - Cloud deployment readiness evaluation
